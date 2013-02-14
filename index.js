@@ -25,6 +25,10 @@ function Sparkline(canvas) {
   this.ctx = canvas.getContext('2d');
 }
 
+Sparkline.prototype.style = function (fn) {
+  fn(this.ctx);
+};
+
 /**
  * Update `data`.
  *
