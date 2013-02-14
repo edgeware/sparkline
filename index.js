@@ -26,7 +26,7 @@ function Sparkline(canvas) {
 }
 
 Sparkline.prototype.style = function (fn) {
-  fn(this.ctx);
+  this.applyStyle = fn;
 };
 
 /**
@@ -53,5 +53,6 @@ Sparkline.prototype.update = function(data){
     var n = data[i] - _min;
     ctx.lineTo(x += sx, h - h * (n / (_max - _min)));
   }
+  this.applyStyle && this.applyStyle(ctx)
   ctx.stroke();
 };
