@@ -45,17 +45,22 @@ Sparkline.prototype.update = function(data){
   var _max = max(data);
   var _min = min(data);
   var range = _max - _min;
-  var sx = w / len;
+  var sx = w / (len-1);
   var x = 0;
-  var y, n, gap = false;
+  var y, n, gap = false, first = true;
   canvas.width = w;
   ctx.beginPath();
   for (var i = 0; i < len; ++i) {
-    x += sx
     if (typeof data[i] == "number") {
       n = data[i] - _min;
       y = h - h * ((n / range) || 0)
       if (!gap) {
+        if (first) {
+          ctx.moveTo(x, y);
+          first = false
+        } else {
+          ctx.lineTo(x, y);
+        }
         ctx.lineTo(x, y);
       } else {
         ctx.moveTo(x, y);
@@ -64,6 +69,7 @@ Sparkline.prototype.update = function(data){
     } else {
       gap = true
     }
+    x += sx
   }
   if(this.applyStyle) this.applyStyle(ctx);
   ctx.stroke();
