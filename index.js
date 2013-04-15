@@ -44,15 +44,27 @@ Sparkline.prototype.update = function(data){
   var h = canvas.height;
   var _max = max(data);
   var _min = min(data);
+  var range = _max - _min;
   var sx = w / len;
   var x = 0;
-
+  var y, n, gap = false;
   canvas.width = w;
   ctx.beginPath();
   for (var i = 0; i < len; ++i) {
-    var n = data[i] - _min;
-    ctx.lineTo(x += sx, h - h * (n / (_max - _min)));
+    x += sx
+    if (typeof data[i] == "number") {
+      n = data[i] - _min;
+      y = h - h * ((n / range) || 0)
+      if (!gap) {
+        ctx.lineTo(x, y);
+      } else {
+        ctx.moveTo(x, y);
+        gap = false;
+      }
+    } else {
+      gap = true
+    }
   }
-  this.applyStyle && this.applyStyle(ctx)
+  if(this.applyStyle) this.applyStyle(ctx);
   ctx.stroke();
 };

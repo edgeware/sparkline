@@ -2,7 +2,7 @@
   "name": "sparkline",
   "repo": "component/sparkline",
   "description": "Tiny spark line graphs",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "keywords": [
     "spark",
     "graph",
