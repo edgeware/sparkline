@@ -9,7 +9,7 @@ var max = require('max')
 /**
  * Local dependencies.
  */
-var LinearScale = require('./linear-scale');
+var LinearScale = require('linear-scale');
 
 
 /**
