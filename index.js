@@ -7,6 +7,12 @@ var max = require('max')
   , min = require('min');
 
 /**
+ * Local dependencies.
+ */
+var LinearScale = require('./linear-scale');
+
+
+/**
  * Expose `Sparkline`.
  */
 
@@ -19,10 +25,11 @@ module.exports = Sparkline;
  * @api public
  */
 
-function Sparkline(canvas) {
+function Sparkline(canvas, yscale) {
   if (!canvas) throw new Error('sparkline canvas required');
   this.canvas = canvas;
   this.ctx = canvas.getContext('2d');
+  this.yscale = yscale
 }
 
 Sparkline.prototype.style = function (fn) {
@@ -44,16 +51,16 @@ Sparkline.prototype.update = function(data){
   var h = canvas.height;
   var _max = max(data);
   var _min = min(data);
-  var range = _max - _min;
-  var sx = w / (len-1);
-  var x = 0;
-  var y, n, gap = false, first = true;
+  var xscale = new LinearScale([0, data.length-1], [0, w]);
+  yscale = this.yscale || new LinearScale([_min, _max], [h, 0]);
+  var y, yval, gap = false, first = true;
   canvas.width = w;
   ctx.beginPath();
   for (var i = 0; i < len; ++i) {
     if (typeof data[i] == "number") {
-      n = data[i] - _min;
-      y = h - h * ((n / range) || 0)
+      yval = data[i];
+      x = xscale.map(i)
+      y = yscale.map(yval)
       if (!gap) {
         if (first) {
           ctx.moveTo(x, y);
@@ -69,7 +76,6 @@ Sparkline.prototype.update = function(data){
     } else {
       gap = true
     }
-    x += sx
   }
   if(this.applyStyle) this.applyStyle(ctx);
   ctx.stroke();

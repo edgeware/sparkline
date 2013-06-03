@@ -12,7 +12,8 @@
   ],
   "dependencies": {
     "component/max": "*",
-    "component/min": "*"
+    "component/min": "*",
+    "karlbohlmark/linear-scale": "*"
   },
   "development": {
     "component/autoscale-canvas": "*",
@@ -20,6 +21,7 @@
   },
   "license": "MIT",
   "scripts": [
-    "index.js"
+    "index.js",
+    "linear-scale.js"
   ]
 }
