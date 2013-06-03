@@ -21,7 +21,6 @@
   },
   "license": "MIT",
   "scripts": [
-    "index.js",
-    "linear-scale.js"
+    "index.js"
   ]
 }
