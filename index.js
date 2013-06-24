@@ -52,8 +52,8 @@ Sparkline.prototype.update = function(data){
   var _max = max(data);
   var _min = min(data);
   var xscale = new LinearScale([0, data.length-1], [0, w]);
-  yscale = this.yscale || new LinearScale([_min, _max], [h, 0]);
-  var y, yval, gap = false, first = true;
+  var yscale = this.yscale || new LinearScale([_min, _max], [h, 0]);
+  var x, y, yval, gap = false, first = true;
   canvas.width = w;
   ctx.beginPath();
   for (var i = 0; i < len; ++i) {
