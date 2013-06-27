@@ -13,7 +13,7 @@
   "dependencies": {
     "component/max": "*",
     "component/min": "*",
-    "karlbohlmark/linear-scale": "*"
+    "edgeware/linear-scale": "*"
   },
   "development": {
     "component/autoscale-canvas": "*",
